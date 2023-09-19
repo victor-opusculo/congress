@@ -1,9 +1,9 @@
 <?php
-namespace Congress\App\Submitter\Panel;
+namespace Congress\App\Assessor\Panel;
 
-use Congress\App\Submitter\Panel\Layout;
-use Congress\App\Submitter\Panel\PanelHome;
-use Congress\App\Submitter\Panel\Settings;
+use Congress\App\Assessor\Panel\Layout;
+use Congress\App\Assessor\Panel\PanelHome;
+use Congress\App\Assessor\Panel\Settings;
 
 require_once "PanelHome.php";
 require_once "Layout.php";

@@ -4,7 +4,6 @@ namespace Congress\Lib\Model;
 
 require_once __DIR__ . '/SqlSelector.php';
 require_once __DIR__ . '/DataProperty.php';
-require_once __DIR__ . '/exceptions.php';
 
 use mysqli;
 

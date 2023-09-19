@@ -54,7 +54,7 @@ abstract class Connection
 
     private static function getDatabaseConfig() : array
 	{
-		$configs = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/sisepi_config.ini", true);
+		$configs = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/congress_config.ini", true);
 		putenv("CRYPTO_KEY=" . $configs['database']['crypto']);
 		return $configs['database'];
 	}

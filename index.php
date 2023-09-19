@@ -29,6 +29,7 @@ if ($urlPath && $urlPath[strlen($urlPath) - 1] !== '/')
 	$urlPath .= '/';
 
 $paths = explode('/', $urlPath);
+
 $pageClass = null;
 
 $currentNamespace = require_once "app/ns.php";
@@ -60,6 +61,7 @@ foreach ($paths as $pIndex => $path)
 			$routesStatus[$pIndex] = true;
 			$pageClass = $currentNamespace['/' . $path];
 			$finalRoutePaths[] = $path;
+			$currentNamespace = [];
 		}
 	}
 	else

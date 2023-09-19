@@ -21,7 +21,8 @@ class NavBar extends Component
         [
             View::component(NavBarItem::class, url: URLGenerator::generatePageUrl('/'), label: 'Home'),
             View::component(NavBarItem::class, url: URLGenerator::generatePageUrl('/#secThemeGroups'), label: 'Grupos temáticos'),
-            View::component(NavBarItem::class, url: URLGenerator::generatePageUrl('/#secArticleSubmission'), label: 'Submissões')
+            View::component(NavBarItem::class, url: URLGenerator::generatePageUrl('/#secArticleSubmission'), label: 'Submissões'),
+            View::component(NavBarItem::class, url: URLGenerator::generatePageUrl('/#secArticleEvaluation'), label: 'Avaliação')
         ]);
     }
 }

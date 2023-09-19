@@ -4,6 +4,7 @@ namespace Congress\App;
 use Congress\Components\Data\DataGrid;
 use Congress\Components\Data\Paginator;
 use Congress\Components\Link;
+use Congress\Components\Panels\ButtonsContainer;
 use Congress\Components\Site\MainSlideShow;
 use Congress\Lib\Helpers\URLGenerator;
 use PComp\{View, Component, HeadManager, Context};
@@ -75,7 +76,31 @@ class HomePage extends Component
 							View::scTag('img', class: 'block h-20 mb-2', src: URLGenerator::generateFileUrl('assets/pics/gear.svg'), alt: 'Painel do autor'),
 							View::tag('div', class: 'text-center', children: [ View::text('Painel do autor')  ]) 
 						]),
-					])
+					View::component(Link::class, 
+						class: 'flex flex-col items-center justify-center w-40 h-40 border border-red-700 rounded hover:backdrop-brightness-75 mr-2 mb-2', 
+						url: URLGenerator::generatePageUrl('/submitter/register'), 
+						children: 
+						[ 
+							View::scTag('img', class: 'block h-20 mb-2', src: URLGenerator::generateFileUrl('assets/pics/write.svg'), alt: 'Cadastrar-se como autor'),
+							View::tag('div', class: 'text-center', children: [ View::text('Cadastrar-se como autor')  ]) 
+						]),
+				])
+			]),
+
+			View::tag('section', id: 'secArticleEvaluation', class: 'w-full bg-emerald-300 px-4 py-4', children: 
+			[
+				View::tag('h1', children: [ View::text('Avaliação de artigos') ]),
+				View::component(ButtonsContainer::class, children: 
+				[
+					View::component(Link::class, 
+						class: 'flex flex-col items-center justify-center w-40 h-40 border border-emerald-700 rounded hover:backdrop-brightness-75 mr-2 mb-2', 
+						url: URLGenerator::generatePageUrl('/assessor/panel'), 
+						children: 
+						[ 
+							View::scTag('img', class: 'block h-20 mb-2', src: URLGenerator::generateFileUrl('assets/pics/gear.svg'), alt: 'Painel do avaliador'),
+							View::tag('div', class: 'text-center', children: [ View::text('Painel do avaliador')  ]) 
+						]),
+				])
 			])
         ];
 	}

@@ -6,14 +6,15 @@ final class URLGenerator
 	private function __construct() { }
 	
 	public static bool $useFriendlyUrls = false;
+	public const BASE_URL = '/congress';
 	
 	public static function generatePageUrl(string $pagePath, array $query = []) : string
 	{
 		$qs = count($query) > 0 ? (self::$useFriendlyUrls ? '?' : '&') . self::generateQueryString($query) : '';
 		return match (self::$useFriendlyUrls)
 		{
-			true => $pagePath[0] == '/' ? $pagePath . $qs : '/' . $pagePath . $qs,
-			false => "index.php?page=$pagePath$qs"
+			true => self::BASE_URL . ($pagePath[0] == '/' ? $pagePath . $qs : '/' . $pagePath . $qs),
+			false => self::BASE_URL . "/index.php?page=$pagePath$qs"
 		};
 	}
 	
@@ -22,8 +23,8 @@ final class URLGenerator
 		$qs = count($query) > 0 ? (self::$useFriendlyUrls ? '?' : '&') . self::generateQueryString($query) : '';
 		return match (self::$useFriendlyUrls)
 		{
-			true => "/--file/$filePathFromRoot" . $qs,
-			false => $filePathFromRoot[0] == '/' ? mb_substr($filePathFromRoot, 1) . $qs : $filePathFromRoot . $qs
+			true => self::BASE_URL . "/--file/$filePathFromRoot" . $qs,
+			false => self::BASE_URL . ($filePathFromRoot[0] == '/' ? '/' . mb_substr($filePathFromRoot, 1) . $qs : '/' . $filePathFromRoot . $qs)
 		};
 	}
 	
@@ -32,8 +33,8 @@ final class URLGenerator
 		$qs = count($query) > 0 ? (self::$useFriendlyUrls ? '?' : '&') . self::generateQueryString($query) : '';
 		return match (self::$useFriendlyUrls)
 		{
-			true => "/--script/$filePathFromScriptDir" . $qs,
-			false => $filePathFromScriptDir[0] == '/' ? "script$filePathFromScriptDir" . $qs : "script/$filePathFromScriptDir" . $qs
+			true => self::BASE_URL . "/--script/$filePathFromScriptDir" . $qs,
+			false => self::BASE_URL . ($filePathFromScriptDir[0] == '/' ? "/script$filePathFromScriptDir" . $qs : "/script/$filePathFromScriptDir" . $qs)
 		};
 	}
 

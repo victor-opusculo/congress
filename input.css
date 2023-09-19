@@ -22,7 +22,7 @@
 
 @layer components
 {
-    .btn { @apply bg-green-700 px-2 py-1 text-white rounded border border-green-900 min-w-[100px] }
+    .btn { @apply bg-green-700 px-2 py-1 text-white rounded border border-green-900 min-w-[100px] text-center }
 
     .link { @apply text-base text-green-700 mx-2 hover:text-green-800 hover:underline active:text-green-900 }
 

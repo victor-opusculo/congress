@@ -26,6 +26,14 @@ final class InititalTables extends AbstractMigration
         ->addIndex('email', [ 'unique' => true ])
         ->create();
 
+        $table->insert(
+        [ 
+            'email' => 'victor.ventura@uol.com.br',
+            'password_hash' => password_hash('12345678', PASSWORD_DEFAULT),
+            'name' => 'Victor Opusculo Oliveira Ventura de Almeida'
+        ])
+        ->saveData();
+
         $table = $this->table('assessors');
         $table
         ->addColumn('email', 'string', [ 'limit' => 140, 'null' => false ])
@@ -39,7 +47,8 @@ final class InititalTables extends AbstractMigration
             'email' => 'victor.ventura@uol.com.br',
             'password_hash' => password_hash('12345678', PASSWORD_DEFAULT),
             'name' => 'Victor Opusculo Oliveira Ventura de Almeida'
-        ]);
+        ])
+        ->saveData();
 
         $table = $this->table('articles');
         $table
@@ -47,19 +56,31 @@ final class InititalTables extends AbstractMigration
         ->addColumn('title', 'string', [ 'limit' => 400, 'null' => false ])
         ->addColumn('resume', 'text')
         ->addColumn('authors', 'json', [ 'null' => false ])
+        ->addColumn('keywords', 'json', [ 'null' => false ])
+        ->addColumn('submitted_at', 'datetime', [ 'null' => false ])
         ->addColumn('no_idded_filename', 'string', [ 'limit' => 255, 'null' => false ])
         ->addColumn('idded_filename', 'string', [ 'null' => true ])
         ->addColumn('status', 'string', [ 'limit' => 100, 'null' => false ])
+        ->addColumn('is_approved', 'boolean', [ 'null' => false ])
         ->addColumn('evaluator_assessor_id', 'integer', [ 'signed' => false, 'null' => true ])
         ->addForeignKey('submitter_id', 'submitters', ['id'], [ 'delete' => 'SET_NULL', 'update' => 'CASCADE' ])
         ->addForeignKey('evaluator_assessor_id', 'assessors', 'id', [ 'delete' => 'SET_NULL', 'update' => 'CASCADE' ])
         ->create();
+
+        $table = $this->table('settings', [ 'id' => false, 'primary_key' => ['name'] ]);
+        $table
+        ->addColumn('name', 'char', [ 'limit' => 100, 'null' => false ])
+        ->addColumn('value', 'text')
+        ->create();
+
+        $table->insert([ ['name' => 'ADMIN_PASSWORD_HASH', 'value' => password_hash('12345678', PASSWORD_DEFAULT)] ])->saveData();
     }
 
     public function down(): void
     {
-        $this->table('submitters')->drop()->save();
-        $this->table('assessors')->drop()->save();
+        $this->table('settings')->drop()->save();
         $this->table('articles')->drop()->save();
+        $this->table('assessors')->drop()->save();
+        $this->table('submitters')->drop()->save();
     }
 }

@@ -35,6 +35,7 @@ class Submitter extends DataEntity
     {
         $selector = (new SqlSelector)
         ->addSelectColumn('*')
+        ->setTable($this->databaseTable)
         ->addWhereClause("{$this->databaseTable}.email = ?")
         ->addValue('s', $this->properties->email->getValue());
 
@@ -44,6 +45,19 @@ class Submitter extends DataEntity
             return $this->newInstanceFromDataRow($dr);
         else
             throw new DatabaseEntityNotFound('Autor não encontrado!', $this->databaseTable);
+    }
+
+    public function checkForExistentEmail(mysqli $conn) : bool
+    {
+        $selector = (new SqlSelector)
+        ->addSelectColumn('COUNT(*)')
+        ->setTable($this->databaseTable)
+        ->addWhereClause("{$this->databaseTable}.email = ? AND NOT {$this->databaseTable}.id = ?")
+        ->addValue('s', $this->properties->email->getValue())
+        ->addValue('i', $this->properties->id->getValue());
+
+        $count = $selector->run($conn, SqlSelector::RETURN_FIRST_COLUMN_VALUE);
+        return $count > 0;
     }
 
     public function verifyPassword(string $givenPassword) : bool
