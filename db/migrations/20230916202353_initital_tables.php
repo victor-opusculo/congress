@@ -24,6 +24,7 @@ final class InititalTables extends AbstractMigration
         ->addColumn('password_hash', 'string', [ 'limit' => 280, 'null' => false ])
         ->addColumn('name', 'string', [ 'limit' => 140, 'null' => false ])
         ->addIndex('email', [ 'unique' => true ])
+        ->addIndex(['name', 'email'], [ 'type' => 'fulltext' ])
         ->create();
 
         $table->insert(
@@ -40,6 +41,7 @@ final class InititalTables extends AbstractMigration
         ->addColumn('password_hash', 'string', [ 'limit' => 280, 'null' => false ])
         ->addColumn('name', 'string', [ 'limit' => 140, 'null' => false ])
         ->addIndex('email', [ 'unique' => true ])
+        ->addIndex(['name', 'email'], [ 'type' => 'fulltext' ])
         ->create();
 
         $table->insert(
@@ -56,15 +58,17 @@ final class InititalTables extends AbstractMigration
         ->addColumn('title', 'string', [ 'limit' => 400, 'null' => false ])
         ->addColumn('resume', 'text')
         ->addColumn('authors', 'json', [ 'null' => false ])
-        ->addColumn('keywords', 'json', [ 'null' => false ])
+        ->addColumn('keywords', 'string', [ 'limit' => 280, 'null' => false ])
         ->addColumn('submitted_at', 'datetime', [ 'null' => false ])
         ->addColumn('no_idded_filename', 'string', [ 'limit' => 255, 'null' => false ])
         ->addColumn('idded_filename', 'string', [ 'null' => true ])
         ->addColumn('status', 'string', [ 'limit' => 100, 'null' => false ])
         ->addColumn('is_approved', 'boolean', [ 'null' => false ])
         ->addColumn('evaluator_assessor_id', 'integer', [ 'signed' => false, 'null' => true ])
+        ->addColumn('evaluator_feedback', 'text', [ 'null' => true ])
         ->addForeignKey('submitter_id', 'submitters', ['id'], [ 'delete' => 'SET_NULL', 'update' => 'CASCADE' ])
         ->addForeignKey('evaluator_assessor_id', 'assessors', 'id', [ 'delete' => 'SET_NULL', 'update' => 'CASCADE' ])
+        ->addIndex(['title', 'resume', 'keywords'], [ 'type' => 'fulltext' ])
         ->create();
 
         $table = $this->table('settings', [ 'id' => false, 'primary_key' => ['name'] ]);

@@ -483,18 +483,18 @@ table tbody tr {
 
 table th {
   text-align: center;
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   line-height: 1.75rem;
   font-weight: 700;
 }
 
 table td {
   text-align: left;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
-input[type='text'], input[type='password'], input[type='email'] {
+input[type='text'], input[type='password'], input[type='email'], input[type='search'] {
   border-radius: 0.25rem;
   border-width: 1px;
   --tw-border-opacity: 1;
@@ -622,8 +622,6 @@ input[type='text'], input[type='password'], input[type='email'] {
 .link {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
   --tw-text-opacity: 1;
   color: rgb(21 128 61 / var(--tw-text-opacity));
 }
@@ -899,6 +897,10 @@ input[type='text'], input[type='password'], input[type='email'] {
   width: 100%;
 }
 
+.min-w-0 {
+  min-width: 0px;
+}
+
 .min-w-\[300px\] {
   min-width: 300px;
 }
@@ -1068,6 +1070,10 @@ input[type='text'], input[type='password'], input[type='email'] {
   text-align: center;
 }
 
+.text-right {
+  text-align: right;
+}
+
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
@@ -1103,9 +1109,6 @@ input[type='text'], input[type='password'], input[type='email'] {
 
 html {
   scroll-behavior: smooth;
-}
-
-body {
   font-size: 18px;
 }
 

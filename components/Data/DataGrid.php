@@ -95,7 +95,7 @@ class DataGrid extends Component
                                 if (isset($this->columnNameAsDetailsButton) && $this->columnNameAsDetailsButton === $column)
                                     $comps[] = View::tag('td', ...['data-th' => $column], children:
                                     [
-                                        View::tag('a', class: 'link', href: str_replace('{param}', $row[$this->rudButtonsFunctionParamName], $this->detailsButtonURL), children:
+                                        View::tag('a', class: 'link text-lg', href: str_replace('{param}', $row[$this->rudButtonsFunctionParamName], $this->detailsButtonURL), children:
                                         [
                                             self::formatCellContent($value)
                                         ])
@@ -108,26 +108,26 @@ class DataGrid extends Component
                             {
                                 if (isset($this->detailsButtonURL) && !isset($this->columnNameAsDetailsButton)) $comps[] = View::tag('td', ...[ 'data-th' => 'Detalhes' ], class: 'w-5', children: 
                                 [ 
-                                    View::tag('a', class: 'link', href: str_replace('{params}', $row[$this->rudButtonsFunctionParamName], $this->detailsButtonURL), children: [ View::text('Detalhes') ])
+                                    View::tag('a', class: 'link text-lg', href: str_replace('{param}', $row[$this->rudButtonsFunctionParamName], $this->detailsButtonURL), children: [ View::text('Detalhes') ])
                                 ]);
                                 if (isset($this->editButtonURL)) $comps[] = View::tag('td', ...[ 'data-th' => 'Editar' ], class: 'w-5', children: 
                                 [ 
-                                    View::tag('a', class: 'link', href: str_replace('{params}', $row[$this->rudButtonsFunctionParamName], $this->editButtonURL), children: [ View::text('Editar') ])
+                                    View::tag('a', class: 'link text-lg', href: str_replace('{param}', $row[$this->rudButtonsFunctionParamName], $this->editButtonURL), children: [ View::text('Editar') ])
                                 ]);
                                 if (isset($this->deleteButtonURL)) $comps[] = View::tag('td', ...[ 'data-th' => 'Excluir' ], class: 'w-5', children: 
                                 [ 
-                                    View::tag('a', class: 'link', href: str_replace('{params}', $row[$this->rudButtonsFunctionParamName], $this->deleteButtonURL), children: [ View::text('Excluir') ])
+                                    View::tag('a', class: 'link text-lg', href: str_replace('{param}', $row[$this->rudButtonsFunctionParamName], $this->deleteButtonURL), children: [ View::text('Excluir') ])
                                 ]);
                                 if (isset($this->selectButtonOnClick)) $comps[] = View::tag('td', ...[ 'data-th' => 'Selecionar' ], class: 'w-5', children: 
                                 [
-                                    View::tag('a', class: 'link', href: str_replace('{params}', $row[$this->rudButtonsFunctionParamName], $this->selectButtonOnClick), children: [ View::text('Selecionar') ])
+                                    View::tag('a', class: 'link text-lg', href: str_replace('{param}', $row[$this->rudButtonsFunctionParamName], $this->selectButtonOnClick), children: [ View::text('Selecionar') ])
                                 ]);
 
                                 if (count($this->customButtons) > 0)
                                     foreach ($this->customButtons as $label => $link)
                                         $comps[] = View::tag('td', ...[ 'data-th' => $label ], class: 'w-5', children: 
                                         [
-                                            View::tag('a', class: 'link', href: self::applyCustomButtonsParameters($link, $this->customButtonsParameters, $row), children: [ View::text($label) ])
+                                            View::tag('a', class: 'link text-lg', href: self::applyCustomButtonsParameters($link, $this->customButtonsParameters, $row), children: [ View::text($label) ])
                                         ]);
                             }
 

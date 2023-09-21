@@ -11,10 +11,10 @@
 
     table { @apply w-full }
     table tbody tr { @apply border-b border-neutral-300 }
-    table th { @apply text-center text-lg font-bold }
-    table td { @apply text-left text-base }
+    table th { @apply text-center text-xl font-bold }
+    table td { @apply text-left text-lg }
 
-    input[type='text'], input[type='password'], input[type='email']
+    input[type='text'], input[type='password'], input[type='email'], input[type='search']
     {
         @apply border border-neutral-700 rounded p-1
     }
@@ -24,7 +24,7 @@
 {
     .btn { @apply bg-green-700 px-2 py-1 text-white rounded border border-green-900 min-w-[100px] text-center }
 
-    .link { @apply text-base text-green-700 mx-2 hover:text-green-800 hover:underline active:text-green-900 }
+    .link { @apply text-green-700 mx-2 hover:text-green-800 hover:underline active:text-green-900 }
 
     .pagination { @apply block my-2 list-none text-lg ml-4 }
     .pagination li { @apply inline mx-1 }
@@ -40,5 +40,4 @@
     .responsibleTable td { @apply block lg:table-cell before:font-bold before:content-[attr(data-th)':_'] lg:before:content-none }
 }
 
-html { scroll-behavior: smooth; }
-body { font-size: 18px; }
+html { scroll-behavior: smooth; font-size: 18px;}

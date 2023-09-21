@@ -78,10 +78,12 @@ foreach ($paths as $pIndex => $path)
 				}
 				else
 				{
+					
 					$routesStatus[$pIndex] = true;
 					$pageClass = $currentNamespace[$key];
 					$finalRoutePaths[] = $key;
 					$matches[] = $path;
+					$currentNamespace = [];
 					break;
 				}
 			}
@@ -117,6 +119,7 @@ $pageMessages = !empty($_GET['messages']) ? explode('//', $_GET['messages']) : [
 <html>
 	<?php
 	$mainFrameComponents = [];
+
 	try
 	{		
 		$urlParams = null;

@@ -21,4 +21,21 @@ final class Data
         array_walk_recursive($demo_array, function($array) use (&$new_array) { $new_array[] = $array; });
         return $new_array;
     }
+
+    public static function transformDataRows(array $input, array $rules) : array
+    {
+        $output = [];
+        
+        if ($input)
+            foreach ($input as $row)
+            {
+                $newRow = [];
+                foreach ($rules as $newKeyName => $ruleFunction)
+                    $newRow[$newKeyName] = $ruleFunction($row);
+
+                $output[] = $newRow;
+            }
+            
+        return $output;
+    }
 } 

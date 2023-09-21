@@ -10,7 +10,7 @@ use mysqli;
 
 class Assessor extends DataEntity
 {
-    public function __construct($initialValues)
+    public function __construct($initialValues = null)
     {
         $this->properties = (object)
         [
@@ -46,6 +46,50 @@ class Assessor extends DataEntity
             return $this->newInstanceFromDataRow($dr);
         else
             throw new DatabaseEntityNotFound('Autor não encontrado!', $this->databaseTable);
+    }
+
+    public function getCount(mysqli $conn, string $searchKeywords) : int
+    {
+        $selector = (new SqlSelector)
+        ->addSelectColumn('COUNT(*)')
+        ->setTable($this->databaseTable);
+
+        if (mb_strlen($searchKeywords) > 3)
+        {
+            $selector
+            ->addWhereClause('MATCH (name, email) AGAINST (?)')
+            ->addValue('s', $searchKeywords);
+        }
+
+        return (int)$selector->run($conn, SqlSelector::RETURN_FIRST_COLUMN_VALUE);
+    }
+
+    public function getMultiple(mysqli $conn, string $searchKeywords, string $orderBy, int $page, int $numResultsOnPage) : array
+    {
+        $selector = (new SqlSelector)
+        ->addSelectColumn("{$this->databaseTable}.*")
+        ->setTable($this->databaseTable);
+
+        if (mb_strlen($searchKeywords) > 3)
+        {
+            $selector
+            ->addWhereClause('MATCH (name, email) AGAINST (?)')
+            ->addValue('s', $searchKeywords);
+        }
+
+        switch ($orderBy)
+        {
+            case 'name': $selector->setOrderBy('name ASC');
+            case 'email': $selector->setOrderBy('email ASC');
+            case 'id': default: $selector->setOrderBy('id DESC');
+        }
+
+        $calc_page = ($page - 1) * $numResultsOnPage;
+        $selector->setLimit('?,?');
+        $selector->addValues('ii', [ $calc_page, $numResultsOnPage ]);
+
+        $drs = $selector->run($conn, SqlSelector::RETURN_ALL_ASSOC);
+        return array_map([$this, 'newInstanceFromDataRow'], $drs);
     }
 
     public function checkForExistentEmail(mysqli $conn) : bool
