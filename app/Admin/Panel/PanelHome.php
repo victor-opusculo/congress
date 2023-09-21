@@ -11,7 +11,7 @@ class PanelHome extends Component
 
     protected function setUp()
     {
-		HeadManager::$title = "Painel do Avaliador";
+		HeadManager::$title = "Painel do Administrador";
     } 
 
     protected function markup() : Component|array
@@ -21,7 +21,8 @@ class PanelHome extends Component
             View::component(ButtonsContainer::class, children:
             [
                 View::component(FeatureButton::class, label: 'Configurações de Conta', url: URLGenerator::generatePageUrl('/admin/panel/settings'), iconUrl: URLGenerator::generateFileUrl('assets/pics/gear.svg') ),
-                View::component(FeatureButton::class, label: 'Gerenciar Avaliadores', url: URLGenerator::generatePageUrl('/admin/panel/man_assessors'), iconUrl: URLGenerator::generateFileUrl('assets/pics/users.svg') )
+                View::component(FeatureButton::class, label: 'Gerenciar Avaliadores', url: URLGenerator::generatePageUrl('/admin/panel/man_assessors'), iconUrl: URLGenerator::generateFileUrl('assets/pics/users.svg') ),
+                View::component(FeatureButton::class, label: 'Gerenciar Autores', url: URLGenerator::generatePageUrl('/admin/panel/man_submitters'), iconUrl: URLGenerator::generateFileUrl('assets/pics/users.svg') )
             ])
         ];
     }

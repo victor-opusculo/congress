@@ -14,7 +14,7 @@ class Assessor extends DataEntity
     {
         $this->properties = (object)
         [
-            'id' => new DataProperty('hidAssessorId', null, DataProperty::MYSQL_INT),
+            'id' => new DataProperty('', null, DataProperty::MYSQL_INT),
             'email' => new DataProperty('txtEmail', null, DataProperty::MYSQL_STRING),
             'password_hash' => new DataProperty('', null, DataProperty::MYSQL_STRING),
             'name' => new DataProperty('txtName', null, DataProperty::MYSQL_STRING)
@@ -79,9 +79,9 @@ class Assessor extends DataEntity
 
         switch ($orderBy)
         {
-            case 'name': $selector->setOrderBy('name ASC');
-            case 'email': $selector->setOrderBy('email ASC');
-            case 'id': default: $selector->setOrderBy('id DESC');
+            case 'name': $selector->setOrderBy('name ASC'); break;
+            case 'email': $selector->setOrderBy('email ASC'); break;
+            case 'id': default: $selector->setOrderBy('id DESC'); break;
         }
 
         $calc_page = ($page - 1) * $numResultsOnPage;
@@ -96,10 +96,21 @@ class Assessor extends DataEntity
     {
         $selector = (new SqlSelector)
         ->addSelectColumn('COUNT(*)')
-        ->setTable($this->databaseTable)
-        ->addWhereClause("{$this->databaseTable}.email = ? AND NOT {$this->databaseTable}.id = ?")
-        ->addValue('s', $this->properties->email->getValue())
-        ->addValue('i', $this->properties->id->getValue());
+        ->setTable($this->databaseTable);
+
+        if (isset($this->id))
+        {
+            $selector
+            ->addWhereClause("{$this->databaseTable}.email = ? AND NOT {$this->databaseTable}.id = ?")
+            ->addValue('s', $this->properties->email->getValue())
+            ->addValue('i', $this->properties->id->getValue());
+        }
+        else
+        {
+            $selector
+            ->addWhereClause("{$this->databaseTable}.email = ? AND NOT {$this->databaseTable}.id IS NULL")
+            ->addValue('s', $this->properties->email->getValue());
+        }
 
         $count = $selector->run($conn, SqlSelector::RETURN_FIRST_COLUMN_VALUE);
         return $count > 0;

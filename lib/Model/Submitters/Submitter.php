@@ -9,7 +9,7 @@ use mysqli;
 
 class Submitter extends DataEntity
 {
-    public function __construct($initialValues)
+    public function __construct($initialValues = null)
     {
         $this->properties = (object)
         [
@@ -51,13 +51,68 @@ class Submitter extends DataEntity
     {
         $selector = (new SqlSelector)
         ->addSelectColumn('COUNT(*)')
-        ->setTable($this->databaseTable)
-        ->addWhereClause("{$this->databaseTable}.email = ? AND NOT {$this->databaseTable}.id = ?")
-        ->addValue('s', $this->properties->email->getValue())
-        ->addValue('i', $this->properties->id->getValue());
+        ->setTable($this->databaseTable);
+
+        if (isset($this->id))
+        {
+            $selector
+            ->addWhereClause("{$this->databaseTable}.email = ? AND NOT {$this->databaseTable}.id = ?")
+            ->addValue('s', $this->properties->email->getValue())
+            ->addValue('i', $this->properties->id->getValue());
+        }
+        else
+        {
+            $selector
+            ->addWhereClause("{$this->databaseTable}.email = ? AND NOT {$this->databaseTable}.id IS NULL")
+            ->addValue('s', $this->properties->email->getValue());
+        }
 
         $count = $selector->run($conn, SqlSelector::RETURN_FIRST_COLUMN_VALUE);
         return $count > 0;
+    }
+
+    public function getCount(mysqli $conn, string $searchKeywords) : int
+    {
+        $selector = (new SqlSelector)
+        ->addSelectColumn('COUNT(*)')
+        ->setTable($this->databaseTable);
+
+        if (mb_strlen($searchKeywords) > 3)
+        {
+            $selector
+            ->addWhereClause('MATCH (name, email) AGAINST (?)')
+            ->addValue('s', $searchKeywords);
+        }
+
+        return (int)$selector->run($conn, SqlSelector::RETURN_FIRST_COLUMN_VALUE);
+    }
+
+    public function getMultiple(mysqli $conn, string $searchKeywords, string $orderBy, int $page, int $numResultsOnPage) : array
+    {
+        $selector = (new SqlSelector)
+        ->addSelectColumn("{$this->databaseTable}.*")
+        ->setTable($this->databaseTable);
+
+        if (mb_strlen($searchKeywords) > 3)
+        {
+            $selector
+            ->addWhereClause('MATCH (name, email) AGAINST (?)')
+            ->addValue('s', $searchKeywords);
+        }
+
+        switch ($orderBy)
+        {
+            case 'name': $selector->setOrderBy('name ASC'); break;
+            case 'email': $selector->setOrderBy('email ASC'); break;
+            case 'id': default: $selector->setOrderBy('id DESC'); break;
+        }
+
+        $calc_page = ($page - 1) * $numResultsOnPage;
+        $selector->setLimit('?,?');
+        $selector->addValues('ii', [ $calc_page, $numResultsOnPage ]);
+
+        $drs = $selector->run($conn, SqlSelector::RETURN_ALL_ASSOC);
+        return array_map([$this, 'newInstanceFromDataRow'], $drs);
     }
 
     public function verifyPassword(string $givenPassword) : bool

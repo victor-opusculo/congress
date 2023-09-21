@@ -86,7 +86,7 @@ abstract class DataEntity implements \IteratorAggregate, \JsonSerializable
 		return $this->otherProperties;
 	}
 
-	public function getSingle(mysqli $conn)
+	public function getSingle(mysqli $conn) : static
 	{
 		$selector = $this->getGetSingleSqlSelector();
 		$dataRow = $selector->run($conn, SqlSelector::RETURN_SINGLE_ASSOC);

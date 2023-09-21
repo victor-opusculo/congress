@@ -5,6 +5,7 @@ use Congress\Components\Data\BasicSearchInput;
 use Congress\Components\Data\DataGrid;
 use Congress\Components\Data\OrderByLinks;
 use Congress\Components\Data\Paginator;
+use Congress\Components\Link;
 use Congress\Components\Panels\ButtonsContainer;
 use Congress\Components\Panels\FeatureButton;
 use Congress\Components\Site\PageTitle;
@@ -20,7 +21,7 @@ class Home extends Component
 
     protected function setUp()
     {
-		HeadManager::$title = "Painel do Avaliador: Gerenciar avaliadores";
+		HeadManager::$title = "Painel do Administrador: Gerenciar avaliadores";
 
         $conn = Connection::get();
 
@@ -49,9 +50,10 @@ class Home extends Component
     {
         return
         [
-            View::component(PageTitle::class, text: 'Gerenciar Avaliadores'),
+            View::component(PageTitle::class, tag: 'h2', text: 'Gerenciar Avaliadores'),
             View::component(BasicSearchInput::class),
             View::component(OrderByLinks::class, linksDefinitions: [ 'ID' => 'id', 'Nome' => 'name', 'E-mail' => 'email' ]),
+            View::tag('div', class: 'my-2', children: [ View::component(Link::class, class:'btn', url: URLGenerator::generatePageUrl('/admin/panel/man_assessors/create'), children: [ View::text('Novo') ] ) ]),
             View::component(DataGrid::class, 
                             dataRows: $this->assessorsList, 
                             rudButtonsFunctionParamName: 'ID', 

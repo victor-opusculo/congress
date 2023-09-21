@@ -20,7 +20,7 @@ final class URLGenerator
 	
 	public static function generateFileUrl(string $filePathFromRoot, array $query = []) : string
 	{
-		$qs = count($query) > 0 ? (self::$useFriendlyUrls ? '?' : '&') . self::generateQueryString($query) : '';
+		$qs = count($query) > 0 ? '?' . self::generateQueryString($query) : '';
 		return match (self::$useFriendlyUrls)
 		{
 			true => self::BASE_URL . "/--file/$filePathFromRoot" . $qs,
@@ -30,7 +30,7 @@ final class URLGenerator
 	
 	public static function generateScriptUrl(string $filePathFromScriptDir, array $query = []) : string
 	{
-		$qs = count($query) > 0 ? (self::$useFriendlyUrls ? '?' : '&') . self::generateQueryString($query) : '';
+		$qs = count($query) > 0 ? '?' . self::generateQueryString($query) : '';
 		return match (self::$useFriendlyUrls)
 		{
 			true => self::BASE_URL . "/--script/$filePathFromScriptDir" . $qs,

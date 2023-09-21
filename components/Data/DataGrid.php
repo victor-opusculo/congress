@@ -86,7 +86,7 @@ class DataGrid extends Component
                 {
                     return View::tag('tr', children:
                     [
-                        ...array_map( function($column, $value) use (&$colCount2, $row)
+                        ...array_map( function($column, $value) use (&$colCount2, &$row)
                         {
                             $colCount2++;
                             $comps = [];
@@ -129,6 +129,8 @@ class DataGrid extends Component
                                         [
                                             View::tag('a', class: 'link text-lg', href: self::applyCustomButtonsParameters($link, $this->customButtonsParameters, $row), children: [ View::text($label) ])
                                         ]);
+
+                                $colCount2 = 0;
                             }
 
                             return $comps;
