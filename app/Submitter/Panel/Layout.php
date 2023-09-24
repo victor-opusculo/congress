@@ -5,7 +5,7 @@ use Congress\Components\Link;
 use Congress\Lib\Helpers\URLGenerator;
 use Congress\Lib\Model\Database\Connection;
 use Congress\Lib\Model\Submitters\Submitter;
-use PComp\{View, Component};
+use PComp\{View, Component, Context};
 
 class Layout extends Component
 {
@@ -21,6 +21,8 @@ class Layout extends Component
 
         $submitter = (new Submitter([ 'id' => $_SESSION['submitter_id'] ]))->getSingle(Connection::get());
         $this->submitterName = $submitter->name;
+
+        Context::set('submitter_name', $submitter->name);
     } 
 
     protected string $submitterName = '***';

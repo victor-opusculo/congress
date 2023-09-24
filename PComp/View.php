@@ -31,14 +31,14 @@ final class View
         }
     }
 
-    public static function text(string $string) : Component
+    public static function text(?string $string) : Component
     {
-        return new Text($string);
+        return new Text($string ?? '');
     }
 
-    public static function rawText(string $string) : Component
+    public static function rawText(?string $string) : Component
     {
-        return new Text($string, false);
+        return new Text($string ?? '', false);
     }
 
     public static function component(string $componentClassName, ...$properties) : Component

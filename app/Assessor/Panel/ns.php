@@ -14,5 +14,7 @@ return
 	'/settings' => Settings::class,
 	'/' => PanelHome::class,
 	'/index' => PanelHome::class,
+	'/available_articles' => fn() => require_once __DIR__ . '/AvailableArticles/ns.php',
+	'/accepted_articles' => fn() => require_once __DIR__ . '/AcceptedArticles/ns.php',
 	'__layout' => Layout::class
 ];

@@ -20,7 +20,9 @@ class PanelHome extends Component
         [
             View::component(ButtonsContainer::class, children:
             [
-                View::component(FeatureButton::class, label: 'Configurações de Conta', url: URLGenerator::generatePageUrl('/assessor/panel/settings'), iconUrl: URLGenerator::generateFileUrl('assets/pics/gear.svg') )
+                View::component(FeatureButton::class, label: 'Configurações de Conta', url: URLGenerator::generatePageUrl('/assessor/panel/settings'), iconUrl: URLGenerator::generateFileUrl('assets/pics/gear.svg') ),
+                View::component(FeatureButton::class, label: 'Artigos Disponíveis', url: URLGenerator::generatePageUrl('/assessor/panel/available_articles'), iconUrl: URLGenerator::generateFileUrl('assets/pics/document.svg') ),
+                View::component(FeatureButton::class, label: 'Artigos Aceitos', url: URLGenerator::generatePageUrl('/assessor/panel/accepted_articles'), iconUrl: URLGenerator::generateFileUrl('assets/pics/document.svg') )
             ])
         ];
     }

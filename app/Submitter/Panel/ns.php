@@ -12,6 +12,7 @@ require_once "Settings.php";
 return
 [
 	'/settings' => Settings::class,
+	'/my_articles' => fn() => require_once __DIR__ . '/MyArticles/ns.php',
 	'/' => PanelHome::class,
 	'/index' => PanelHome::class,
 	'__layout' => Layout::class

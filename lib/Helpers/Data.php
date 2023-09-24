@@ -5,6 +5,12 @@ final class Data
 {
     public function __construct() { }
 
+    public static function truncateText(?string $string, int $maxLength) : string
+    {
+        if (!$string) return '';
+        return mb_strlen($string) > $maxLength ? mb_substr($string, 0, $maxLength) . '...' : $string;
+    }
+
     public static function hsc(?string $string) : string
     {
         return htmlspecialchars($string ?? '', ENT_NOQUOTES);
