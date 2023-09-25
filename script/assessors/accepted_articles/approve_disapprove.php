@@ -4,6 +4,7 @@ use Congress\Lib\Helpers\URLGenerator;
 use Congress\Lib\Model\Articles\Article;
 use Congress\Lib\Model\Articles\ArticleStatus;
 use Congress\Lib\Model\Database\Connection;
+use Congress\Lib\Model\Mail\NotificationDisapprovedArticle;
 use Congress\Lib\Model\Mail\NotificationToUploadIddedArticle;
 use Congress\Lib\Model\Submitters\Submitter;
 
@@ -55,6 +56,11 @@ if (isset($_SESSION['assessor_id']) && $id)
             {
                 $submitter = (new Submitter([ 'id' => $article->submitter_id ]))->getSingle($conn);
                 NotificationToUploadIddedArticle::send($article, $submitter);
+            }
+            else if ($action === 'disapprove')
+            {
+                $submitter = (new Submitter([ 'id' => $article->submitter_id ]))->getSingle($conn);
+                NotificationDisapprovedArticle::send($article, $submitter);
             }
         }
         else

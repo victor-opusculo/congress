@@ -22,6 +22,7 @@ if (isset($_SESSION['assessor_id']) && $id)
         $article->status = ArticleStatus::WaitingEvaluation->value;
         
         $result = $article->save($conn);
+
         if ($result['affectedRows'] > 0)
             $messages[] = 'Artigo aceito para avaliação!';
         else
