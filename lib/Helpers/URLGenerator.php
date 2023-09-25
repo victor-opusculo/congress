@@ -5,7 +5,7 @@ final class URLGenerator
 {
 	private function __construct() { }
 	
-	public static ?bool $useFriendlyUrls = false;
+	public static ?bool $useFriendlyUrls = null;
 	public const BASE_URL = '/congress';
 	
 	private static function loadConfigs() : void
