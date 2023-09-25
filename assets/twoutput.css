@@ -494,7 +494,7 @@ table td {
   line-height: 1.75rem;
 }
 
-input[type='text'], input[type='password'], input[type='email'], input[type='search'], textarea {
+input[type='text'], input[type='password'], input[type='email'], input[type='search'], textarea, select {
   border-radius: 0.25rem;
   border-width: 1px;
   --tw-border-opacity: 1;
@@ -826,20 +826,16 @@ input[type='text'], input[type='password'], input[type='email'], input[type='sea
   margin-right: 1rem;
 }
 
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
 .mt-2 {
   margin-top: 0.5rem;
 }
 
 .mt-4 {
   margin-top: 1rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
-}
-
-.mt-10 {
-  margin-top: 2.5rem;
 }
 
 .block {

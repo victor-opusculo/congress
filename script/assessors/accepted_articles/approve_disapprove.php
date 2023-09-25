@@ -4,6 +4,8 @@ use Congress\Lib\Helpers\URLGenerator;
 use Congress\Lib\Model\Articles\Article;
 use Congress\Lib\Model\Articles\ArticleStatus;
 use Congress\Lib\Model\Database\Connection;
+use Congress\Lib\Model\Mail\NotificationToUploadIddedArticle;
+use Congress\Lib\Model\Submitters\Submitter;
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
@@ -20,8 +22,11 @@ if (isset($_SESSION['assessor_id']) && $id)
     {
         $article = (new Article([ 'id' => $id ]))->getSingle($conn);
 
-        if ($article->idded_filename && $radAction == 'disapprove')
+        if ($article->idded_filename && $action == 'disapprove')
             throw new Exception('Não é possível reprovar após a versão identificada ter sido anexa!');
+
+        if ($article->idded_filename && $action == 'approve')
+            throw new Exception('Não é possível alterar status após a versão identificada ter sido anexa!');
 
         if ($article->evaluator_assessor_id != $_SESSION['assessor_id'])
             throw new Exception('Avaliador diferente do que aceitou o artigo!');
@@ -44,9 +49,16 @@ if (isset($_SESSION['assessor_id']) && $id)
         
         $result = $article->save($conn);
         if ($result['affectedRows'] > 0)
+        {
             $messages[] = 'Você avaliou o artigo com sucesso!';
+            if ($action === 'approve')
+            {
+                $submitter = (new Submitter([ 'id' => $article->submitter_id ]))->getSingle($conn);
+                NotificationToUploadIddedArticle::send($article, $submitter);
+            }
+        }
         else
-            throw new Exception('Não foi possível avaliar o artigo.');
+            throw new Exception('Status de avaliação não alterado.');
     }
     catch (Exception $e)
     {

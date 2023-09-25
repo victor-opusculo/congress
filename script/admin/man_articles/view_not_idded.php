@@ -1,5 +1,5 @@
 <?php
-session_name("congress_submitter_user");
+session_name("congress_admin_user");
 session_start();
 
 use Congress\Lib\Model\Database\Connection;
@@ -10,12 +10,12 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : 0;
 
-if (isset($_SESSION['submitter_id']))
+if (isset($_SESSION['admin_passhash']))
 {
     $conn = Connection::create();
     try
     {
-        $article = (new Article([ 'id' => $id, 'submitter_id' => $_SESSION['submitter_id'] ]))->getSingleFromSubmitter($conn);
+        $article = (new Article([ 'id' => $id ]))->getSingle($conn);
         $filename = $article->no_idded_filename;
         $extension = pathinfo($filename, PATHINFO_EXTENSION);
         

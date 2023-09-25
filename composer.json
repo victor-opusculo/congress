@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "atk4/dsql": "^2.4"
+        "phpmailer/phpmailer": "^6.8"
     },
     "require-dev": {
         "robmorgan/phinx": "*"

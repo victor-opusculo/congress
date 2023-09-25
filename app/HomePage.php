@@ -6,6 +6,7 @@ use Congress\Components\Data\Paginator;
 use Congress\Components\Link;
 use Congress\Components\Panels\ButtonsContainer;
 use Congress\Components\Site\MainSlideShow;
+use Congress\Lib\Helpers\System;
 use Congress\Lib\Helpers\URLGenerator;
 use PComp\{View, Component, HeadManager, Context};
 
@@ -21,13 +22,7 @@ class HomePage extends Component
 	
 	protected function setUp()
 	{
-		$this->name = "Victor Opusculo O. V. de Almeida";
-		$this->numberOfPersons = mt_rand(1, 8);
-		$this->pageTitle = "Gerando {$this->numberOfPersons} pessoas!";
-		HeadManager::$title = "Congresso";
-
-		$this->userName = Context::get('user') ?? 'indefinido';
-
+		HeadManager::$title = System::eventName();
 	}
 		
 	protected function markup() : Component|array

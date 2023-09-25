@@ -7,6 +7,7 @@ enum ArticleStatus: string
     case WaitingEvaluation = '2_waiting_evaluation';
     case Approved = '3_approved';
     case Disapproved = '4_disapproved';
+    case ApprovedWithIddedFile = '5_approved_final';
 
     public static function translate(ArticleStatus|string $enumValue) : string
     {
@@ -20,7 +21,8 @@ enum ArticleStatus: string
                 self::WaitingAssessor => 'Aguardando avaliador aceitar o artigo.',
                 self::WaitingEvaluation => 'Aceito por avaliador. Aguardando avaliação.',
                 self::Approved => 'Aprovado!',
-                self::Disapproved => 'Reprovado!'
+                self::Disapproved => 'Reprovado!',
+                self::ApprovedWithIddedFile => 'Aprovado com arquivo com identificação de autores'
             };
         else 
             return '***';

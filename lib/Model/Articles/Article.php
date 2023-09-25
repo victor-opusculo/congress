@@ -37,6 +37,7 @@ class Article extends DataEntity
     protected string $formFieldPrefixName = 'articles';
     protected array $primaryKeys = ['id'];
     protected string $fileInputNameNotIdded = 'fileArticleNotIdded';
+    protected string $fileInputNameIdded = 'fileArticleIdded';
 
     protected function newInstanceFromDataRow($dataRow)
     {
@@ -53,6 +54,19 @@ class Article extends DataEntity
         $json = $this->properties->authors->getValue();
         $decoded = json_decode($json);
         return $decoded;
+    }
+
+    public function getSingle(mysqli $conn): static
+    {
+        $selector = $this->getGetSingleSqlSelector();
+        $selector->addSelectColumn('assessors.name AS assessorName')
+        ->addJoin("LEFT JOIN assessors ON assessors.id = {$this->databaseTable}.evaluator_assessor_id");
+
+        $dr = $selector->run($conn, SqlSelector::RETURN_SINGLE_ASSOC);
+        if (isset($dr))
+            return $this->newInstanceFromDataRow($dr);
+        else
+            throw new DatabaseEntityNotFound('Artigo não encontrado!', $this->databaseTable);
     }
 
     public function getCount(mysqli $conn, string $searchKeywords, string $status, ?int $submitter_id, ?int $assessor_id) : int
@@ -94,7 +108,9 @@ class Article extends DataEntity
     {
         $selector = (new SqlSelector)
         ->addSelectColumn("{$this->databaseTable}.*")
-        ->setTable($this->databaseTable);
+        ->addSelectColumn("assessors.name AS assessorName")
+        ->setTable($this->databaseTable)
+        ->addJoin("LEFT JOIN assessors ON assessors.id = {$this->databaseTable}.evaluator_assessor_id");
 
         if (mb_strlen($searchKeywords) > 3)
         {
@@ -156,6 +172,42 @@ class Article extends DataEntity
             throw new DatabaseEntityNotFound('Artigo não encontrado!', $this->databaseTable);
     }
 
+    public function getMultipleForExport(mysqli $conn, string $searchKeywords, string $status, string $orderBy) : array
+    {
+        $selector = (new SqlSelector)
+        ->addSelectColumn("{$this->databaseTable}.*")
+        ->addSelectColumn("assessors.name AS assessorName")
+        ->setTable($this->databaseTable)
+        ->addJoin("LEFT JOIN assessors ON assessors.id = {$this->databaseTable}.evaluator_assessor_id");
+
+        if (mb_strlen($searchKeywords) > 3)
+        {
+            $selector
+            ->addWhereClause('MATCH (title, resume, keywords) AGAINST (?)')
+            ->addValue('s', $searchKeywords);
+        }
+
+        if ($status)
+        {
+            if ($selector->hasWhereClauses())
+                $selector->addWhereClause('AND status = ?')->addValue('s', $status);
+            else
+                $selector->addWhereClause('status = ?')->addValue('s', $status);
+        }
+
+        $selector->setOrderBy(match ($orderBy)
+        {
+            'title' => 'title asc',
+            'status' => 'status asc',
+            'submitted_at' => 'submitted_at desc',
+            'id' => 'id desc',
+            default => 'id desc'
+        });
+
+        $drs = $selector->run($conn, SqlSelector::RETURN_ALL_ASSOC);
+        return array_map([$this, 'newInstanceFromDataRow'], $drs);
+    }
+
     public function beforeDatabaseInsert(mysqli $conn): int
     {
         Upload\NotIddedArticleUpload::checkForUploadError($this->postFiles, $this->fileInputNameNotIdded);
@@ -170,5 +222,33 @@ class Article extends DataEntity
     {
         Upload\NotIddedArticleUpload::uploadArticleFile($insertResult['newId'], $this->postFiles, $this->fileInputNameNotIdded);
         return $insertResult;
+    }
+
+    public function beforeDatabaseUpdate(mysqli $conn): int
+    {
+        if (isset($this->postFiles) && $this->postFiles[$this->fileInputNameIdded])
+        {
+            Upload\IddedArticleUpload::checkForUploadError($this->postFiles, $this->fileInputNameIdded);
+            $extension = Upload\IddedArticleUpload::getExtension($this->postFiles, $this->fileInputNameIdded);
+            $this->properties->idded_filename->setValue("idded.$extension");
+            $this->properties->status->setValue(ArticleStatus::ApprovedWithIddedFile->value);
+        }
+        return 0;
+    }
+
+    public function afterDatabaseUpdate(mysqli $conn, $updateResult)
+    {
+        if (isset($this->postFiles) && $this->postFiles[$this->fileInputNameIdded])
+        {
+            Upload\IddedArticleUpload::uploadArticleFile($this->properties->id->getValue(), $this->postFiles, $this->fileInputNameIdded);
+        }
+        return $updateResult;
+    }
+
+    public function afterDatabaseDelete(mysqli $conn, $deleteResult)
+    {
+        Upload\NotIddedArticleUpload::cleanArticleFolder($this->properties->id->getValue());
+        Upload\NotIddedArticleUpload::checkForEmptyArticleDir($this->properties->id->getValue());
+        return $deleteResult;
     }
 }
