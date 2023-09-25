@@ -8,7 +8,7 @@ final class URLGenerator
 	public static ?bool $useFriendlyUrls = false;
 	public const BASE_URL = '/congress';
 	
-	private function loadConfigs() : void
+	private static function loadConfigs() : void
 	{
 		if (isset(self::$useFriendlyUrls)) return;
 
