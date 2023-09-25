@@ -5,11 +5,20 @@ final class URLGenerator
 {
 	private function __construct() { }
 	
-	public static bool $useFriendlyUrls = false;
+	public static ?bool $useFriendlyUrls = false;
 	public const BASE_URL = '/congress';
 	
+	private function loadConfigs() : void
+	{
+		if (isset(self::$useFriendlyUrls)) return;
+
+		$configs = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/congress_config.ini", true);
+		self::$useFriendlyUrls = (bool)($configs['urls']['usefriendly']);
+	}
+
 	public static function generatePageUrl(string $pagePath, array $query = []) : string
 	{
+		self::loadConfigs();
 		$qs = count($query) > 0 ? (self::$useFriendlyUrls ? '?' : '&') . self::generateQueryString($query) : '';
 		return match (self::$useFriendlyUrls)
 		{
@@ -20,6 +29,8 @@ final class URLGenerator
 	
 	public static function generateFileUrl(string $filePathFromRoot, array $query = []) : string
 	{
+		self::loadConfigs();
+
 		$qs = count($query) > 0 ? '?' . self::generateQueryString($query) : '';
 		return match (self::$useFriendlyUrls)
 		{
@@ -30,6 +41,8 @@ final class URLGenerator
 	
 	public static function generateScriptUrl(string $filePathFromScriptDir, array $query = []) : string
 	{
+		self::loadConfigs();
+
 		$qs = count($query) > 0 ? '?' . self::generateQueryString($query) : '';
 		return match (self::$useFriendlyUrls)
 		{

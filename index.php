@@ -5,9 +5,6 @@ use PComp\{View, Component, HeadManager, StyleManager, ScriptManager};
 
 require_once "vendor/autoload.php";
 
-$configs = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/congress_config.ini", true);
-URLGenerator::$useFriendlyUrls = (bool)($configs['urls']['usefriendly']);
-
 class PageNotFound extends Component
 {
 	protected function setUp()
@@ -161,7 +158,7 @@ $pageMessages = !empty($_GET['messages']) ? explode('//', $_GET['messages']) : [
 	?>
 	<head>
 		<meta charset="utf8"/>
-		<link rel="stylesheet" href="assets/twoutput.css" />
+		<link rel="stylesheet" href="<?= URLGenerator::generateFileUrl('assets/twoutput.css') ?>" />
 		<?= HeadManager::getHeadText() ?>
 		<?= StyleManager::getStylesText() ?>
 	</head>
