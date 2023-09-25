@@ -1,7 +1,12 @@
 <?php
+
+use Congress\Lib\Helpers\URLGenerator;
 use PComp\{View, Component, HeadManager, StyleManager, ScriptManager};
 
 require_once "vendor/autoload.php";
+
+$configs = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/congress_config.ini", true);
+URLGenerator::$useFriendlyUrls = (bool)($configs['urls']['usefriendly']);
 
 class PageNotFound extends Component
 {
