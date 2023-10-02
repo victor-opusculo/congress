@@ -18,6 +18,6 @@ final class System
 
     public static function eventName() : string
     {
-        return "Congresso";
+        return "1º Congresso de Territorialidades, Políticas e Sustentabilidade";
     }
 }

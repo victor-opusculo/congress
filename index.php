@@ -159,6 +159,7 @@ $pageMessages = !empty($_GET['messages']) ? explode('//', $_GET['messages']) : [
 	<head>
 		<meta charset="utf8"/>
 		<link rel="stylesheet" href="<?= URLGenerator::generateFileUrl('assets/twoutput.css') ?>" />
+		<link rel="shortcut icon" href="<?= URLGenerator::generateFileUrl('assets/favicon.ico') ?>">
 		<?= HeadManager::getHeadText() ?>
 		<?= StyleManager::getStylesText() ?>
 	</head>
