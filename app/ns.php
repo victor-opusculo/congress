@@ -11,6 +11,7 @@ return
 	'/admin' => fn() => require_once __DIR__ . '/Admin/ns.php',
 	'/submitter' => fn() => require_once __DIR__ . '/Submitter/ns.php',
 	'/assessor' => fn() => require_once __DIR__ . '/Assessor/ns.php',
+	'/infos' => fn() => require_once __DIR__ . '/Infos/ns.php',
 	'__layout' => Layout::class,
 	'__error' => Error::class
 ];

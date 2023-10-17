@@ -16,6 +16,7 @@ class Login extends Component
     {
         return
         [
+            View::tag('h2', children: [ View::text('Log-in de autor') ]),
             View::tag('div', class: 'mx-auto max-w-[600px] min-w-[300px] bg-slate-200 border border-slate-700 text-base p-4 mt-4', children:
             [
                 View::tag('form', method: 'post', action: URLGenerator::generateScriptUrl('submitters/login.php'), children: 

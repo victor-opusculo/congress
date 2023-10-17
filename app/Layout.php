@@ -18,7 +18,7 @@ class Layout extends Component
     {
         return
         [
-            View::tag('div', class: 'min-h-[calc(100vh)]', children:
+            View::tag('div', class: 'min-h-[calc(100vh-150px)]', children:
             [
                 View::tag('header', class: 'block text-center', children:
                 [
@@ -27,6 +27,12 @@ class Layout extends Component
                 View::component(\Congress\Components\NavBar::class),
                 View::component(\Congress\Components\PageMessages::class),
                 View::tag('main', children: $this->children)
+            ]),
+            View::tag('footer', class: 'bg-amber-300 p-4 h-[150px]', children:
+            [
+                View::tag('p', class: 'text-lg text-center font-bold', children: [ View::text(System::eventName()) ]),
+                View::tag('p', class: 'text-base text-center', children: [ View::text("Organização: ***") ]),
+                View::tag('p', class: 'text-base text-center', children: [ View::text("Contato: ***") ])
             ])
         ];
     }

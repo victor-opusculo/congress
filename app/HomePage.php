@@ -29,9 +29,29 @@ class HomePage extends Component
 	{
         return
         [
-			View::tag('section', class: 'w-full bg-emerald-700 h-[500px] flex items-center justify-center', children:
+			View::tag('section', 
+						class: 'relative w-full bg-emerald-700 h-[500px] bg-no-repeat bg-right',
+						style: "background-image: url('" . URLGenerator::generateFileUrl('assets/pics/reg-dev.webp') . "');", 
+						children:
 			[
-				View::component(MainSlideShow::class)
+				View::tag('div', class: 'absolute top-0 bottom-0 left-0 right-0 bg-emerald-700/60 p-2', children: 
+				[
+					View::tag('div', class: 'text-white font-bold flex flex-col items-center justify-center mx-auto min-w-[400px] max-w-[700px]' , children: 
+					[
+						View::tag('h1', children: [ View::text(System::eventName()) ]),
+						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Dias 7 e 8 de dezembro de 2023') ]),
+						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Submissões de 20 de outubro a 20 de novembro') ]),
+						View::tag('p', class: 'text-orange-500 text-left text-2xl mt-4', children: 
+						[ 
+							View::tag('img', src: URLGenerator::generateFileUrl('assets/pics/location.svg'), class: 'h-8 w-5 inline-block mr-2'),
+							View::text('Câmara Municipal de Itapevi')
+						]),
+						View::tag('p', class: 'text-orange-400 text-center text-xl', children:
+						[
+							View::text('Rua Arnaldo Sérgio Cordeiro das Neves, nº 80 - Vila Nova - Itapevi/SP')
+						])
+					])
+				])
 			]),
 			View::tag('section', id: 'secThemeGroups', children: [ View::rawText(file_get_contents(__DIR__ . '/theme-groups.html')) ]),
 			View::tag('section', id: 'secArticleSubmission', class: 'w-full bg-red-300 px-4 py-4', children: 
@@ -41,7 +61,7 @@ class HomePage extends Component
 				[
 					View::component(Link::class, 
 						class: 'flex flex-col items-center justify-center w-40 h-40 border border-red-700 rounded hover:backdrop-brightness-75 mr-2 mb-2', 
-						url: URLGenerator::generateFileUrl('assets/docs/normas-de-submissão.docx'), 
+						url: URLGenerator::generatePageUrl('/infos'), 
 						children: 
 						[ 
 							View::scTag('img', class: 'block h-20 mb-2', src: URLGenerator::generateFileUrl('assets/pics/document.svg'), alt: 'Normas de submissão'),
