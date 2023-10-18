@@ -16,7 +16,7 @@ class NavBar extends Component
     protected function markup() : Component
     {
         return View::tag('nav',
-        class: 'sticky z-10 top-0 bg-green-600 text-white font-bold text-xl flex flex-row justify-center',
+        class: 'sticky z-10 top-0 bg-green-600 text-white font-bold text-xl flex flex-row flex-wrap justify-center',
         children:
         [
             View::component(NavBarItem::class, url: URLGenerator::generatePageUrl('/'), label: 'Home'),
