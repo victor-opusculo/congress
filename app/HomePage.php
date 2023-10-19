@@ -39,7 +39,7 @@ class HomePage extends Component
 					View::tag('div', class: 'text-white font-bold flex flex-col items-center justify-center mx-auto min-w-[300px] max-w-[700px]' , children: 
 					[
 						View::tag('h1', class: 'lg:text-4xl text-2xl lg:my-4 my-2', children: [ View::text(System::eventName()) ]),
-						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Dias 7 e 8 de dezembro de 2023') ]),
+						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Dias 7 e 8 de dezembro de 2023 (9h)') ]),
 						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Submissões de 20 de outubro a 20 de novembro') ]),
 						View::tag('p', class: 'text-orange-500 text-left text-2xl mt-4', children: 
 						[ 

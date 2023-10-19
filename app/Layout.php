@@ -31,8 +31,11 @@ class Layout extends Component
             View::tag('footer', class: 'bg-amber-300 p-4 h-[150px]', children:
             [
                 View::tag('p', class: 'text-lg text-center font-bold', children: [ View::text(System::eventName()) ]),
-                View::tag('p', class: 'text-base text-center', children: [ View::text("Organização: ***") ]),
-                View::tag('p', class: 'text-base text-center', children: [ View::text("Contato: ***") ])
+                View::tag('p', id: 'contactInfo', class: 'text-lg text-center', children: 
+                [
+                    View::text("Contato: 📧 "),
+                    View::tag('a', href: 'mailto:congresso@v-opus.kinghost.net', children: [ View::text('congresso@v-opus.kinghost.net') ])
+                ])
             ])
         ];
     }
