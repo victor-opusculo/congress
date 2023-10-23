@@ -45,7 +45,7 @@ class SubmissionRules extends Component
                         View::tag('li', children: [ View::text('O Título do artigo deve vir: centralizado; caixa alta; negrito; tamanho 14; espaçamento 1,5; seguido de subtítulo em caixa baixa;') ]),
                         View::tag('li', children: [ View::text('Palavras-chave: entre três e cinco palavras, separadas por ponto e vírgula;') ]),
                         View::tag('li', children: [ View::text('O Resumo pode ter no máximo 1.000 caracteres com espaço, devendo conter o problema de pesquisa, objetivo, abordagem metodológica e breves resultados. Apresentado com: Parágrafo único; sem recuo; justificado e espaço simples;') ]),
-                        View::tag('li', children: [ View::text('O texto submetido deve conter entre 20 e 25 páginas, com fonte Times New Roman, tamanho 12 (exceto para o título); espaçamento entre linhas 1,5.') ])
+                        View::tag('li', children: [ View::text('O texto submetido deve conter entre 15 e 20 páginas, com fonte Times New Roman, tamanho 12 (exceto para o título); espaçamento entre linhas 1,5.') ])
                     ])
                 ]),
 
