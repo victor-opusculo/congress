@@ -21,7 +21,7 @@ class NavBarItem extends Component
         class: '',
         children:
         [
-            View::component(Link::class, class: 'hover:bg-red-500 cursor-pointer inline-block px-4 py-4' , url: $this->url, children: [ View::text($this->label) ])
+            View::component(Link::class, class: 'hover:bg-red-500 cursor-pointer inline-block px-4 py-2 md:py-4' , url: $this->url, children: [ View::text($this->label) ])
         ]);
     }
 }

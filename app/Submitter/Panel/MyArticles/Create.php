@@ -5,6 +5,8 @@ use Congress\Components\Label;
 use Congress\Components\Site\PageTitle;
 use Congress\Lib\Helpers\URLGenerator;
 use Congress\Lib\Model\Articles\Upload\NotIddedArticleUpload;
+use Congress\Lib\Model\Database\Connection;
+use Congress\Lib\Model\Settings\SubmissionsClosureDate;
 use PComp\{View, Component, Context, HeadManager, ScriptManager};
 
 class Create extends Component
@@ -13,13 +15,23 @@ class Create extends Component
     {
 		HeadManager::$title = "Painel do Autor: Cadastrar artigo";
         ScriptManager::registerScript('submitterCreateArticleScript', file_get_contents(__DIR__ . '/create.js'));
+
+        $conn = Connection::get();
+        $closure = date_create((new SubmissionsClosureDate)->getSingle($conn)->value ?? 'now');
+        $today = date_create('now');
+
+        $this->isClosed = $today >= $closure;
     } 
+
+    private bool $isClosed;
 
     protected function markup() : Component|array
     {
         return
         [
             View::component(PageTitle::class, tag: 'h2', text: 'Cadastrar Artigo'),
+            
+            !$this->isClosed ?
             View::tag('form', id: 'frmCreateArticle', method: 'post', action: URLGenerator::generateScriptUrl('submitters/my_articles/create.php'), enctype: 'multipart/form-data', children:
             [
                 View::component(Label::class, label: 'Título', children: [ View::scTag('input', type: 'text', required: 'req', maxlength: 380, class: 'w-full', name:'articles:txtTitle') ]),
@@ -54,6 +66,8 @@ class Create extends Component
                     View::tag('button', type: 'submit', class: 'btn', children: [ View::text('Enviar!') ])
                 ])
             ])
+            :
+            View::tag('p', children: [ View::text('Período de submissões encerrado!') ])
         ];
     }
 }

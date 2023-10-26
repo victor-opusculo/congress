@@ -5,6 +5,7 @@ session_start();
 use Congress\Lib\Helpers\URLGenerator;
 use Congress\Lib\Model\Articles\Article;
 use Congress\Lib\Model\Database\Connection;
+use Congress\Lib\Model\Settings\SubmissionsClosureDate;
 
 require_once "../../../vendor/autoload.php";
 
@@ -15,6 +16,12 @@ if (isset($_SESSION['submitter_id']))
     $conn = Connection::create();
     try
     {
+        $closure = date_create((new SubmissionsClosureDate)->getSingle($conn)->value ?? 'now');
+        $today = date_create('now');
+
+        if ($today >= $closure)
+            throw new Exception("Período de submissões encerrado!");
+
         $art = new Article([ 'submitter_id' => $_SESSION['submitter_id'] ]);
         $art->fillPropertiesFromFormInput($_POST, $_FILES);
 

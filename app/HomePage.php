@@ -41,6 +41,13 @@ class HomePage extends Component
 						View::tag('h1', class: 'lg:text-4xl text-2xl lg:my-4 my-2', children: [ View::text(System::eventName()) ]),
 						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Dias 7 e 8 de dezembro de 2023 (9h)') ]),
 						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Submissões de 20 de outubro a 20 de novembro') ]),
+						View::tag('p', class: 'text-amber-400 text-left text-lg', children: 
+						[ 
+							View::rawText('&#10140; Inscreva-se como ') ,
+							View::tag('a', href: URLGenerator::generatePageUrl('/spectator/register'), children: [ View::text('espectador (ouvinte)') ]),
+							View::text(' e/ou '),
+							View::tag('a', href: URLGenerator::generatePageUrl('/submitter/register'), children: [ View::text('autor de artigo') ]),
+						]),
 						View::tag('p', class: 'text-orange-500 text-left text-2xl mt-4', children: 
 						[ 
 							View::tag('img', src: URLGenerator::generateFileUrl('assets/pics/location.svg'), class: 'h-8 w-5 inline-block mr-2'),
@@ -114,6 +121,30 @@ class HomePage extends Component
 						[ 
 							View::scTag('img', class: 'block h-20 mb-2', src: URLGenerator::generateFileUrl('assets/pics/gear.svg'), alt: 'Painel do avaliador'),
 							View::tag('div', class: 'text-center', children: [ View::text('Painel do avaliador')  ]) 
+						]),
+				])
+			]),
+
+			View::tag('section', id: 'secSpectator', class: 'w-full bg-cyan-300 px-4 py-4', children: 
+			[
+				View::tag('h1', children: [ View::text('Espectadores Presentes') ]),
+				View::component(ButtonsContainer::class, children: 
+				[
+					View::component(Link::class, 
+						class: 'flex flex-col items-center justify-center w-40 h-40 border border-cyan-700 rounded hover:backdrop-brightness-75 mr-2 mb-2', 
+						url: URLGenerator::generatePageUrl('/spectator/register'), 
+						children: 
+						[ 
+							View::scTag('img', class: 'block h-20 mb-2', src: URLGenerator::generateFileUrl('assets/pics/write.svg'), alt: 'Inscrever-se como Espectador'),
+							View::tag('div', class: 'text-center', children: [ View::text('Inscrever-se como espectador')  ]) 
+						]),
+					View::component(Link::class, 
+						class: 'flex flex-col items-center justify-center w-40 h-40 border border-cyan-700 rounded hover:backdrop-brightness-75 mr-2 mb-2', 
+						url: URLGenerator::generatePageUrl('/spectator/verify'), 
+						children: 
+						[ 
+							View::scTag('img', class: 'block h-20 mb-2', src: URLGenerator::generateFileUrl('assets/pics/search.svg'), alt: 'Verificar inscrição'),
+							View::tag('div', class: 'text-center', children: [ View::text('Verificar inscrição')  ]) 
 						]),
 				])
 			])

@@ -5,6 +5,8 @@ session_start();
 use Congress\Lib\Helpers\URLGenerator;
 use Congress\Lib\Model\Settings\AdminPassword;
 use Congress\Lib\Model\Database\Connection;
+use Congress\Lib\Model\Settings\SpectatorSubscriptionsClosureDate;
+use Congress\Lib\Model\Settings\SubmissionsClosureDate;
 
 require_once "../../vendor/autoload.php";
 
@@ -28,9 +30,23 @@ if (isset($_SESSION['admin_passhash']))
 
         $result = $adminPass->save($conn);
         if ($result['affectedRows'] > 0)
-            $messages[] = "Dados salvos com sucesso!";
+            $messages[] = "Senha salva com sucesso!";
         else
-            throw new Exception("Nenhum dado alterado.");
+            $messages[] = "Senha não alterada!";
+
+        $submissionClosure = new SubmissionsClosureDate();
+        $submissionClosure->fillPropertiesFromFormInput($_POST);
+        $result = $submissionClosure->save($conn);
+
+        if ($result['affectedRows'] > 0)
+            $messages[] = "Data limite de submissão de artigos alterada!";
+
+        $spectatorsClosure = new SpectatorSubscriptionsClosureDate();
+        $spectatorsClosure->fillPropertiesFromFormInput($_POST);
+        $result = $spectatorsClosure->save($conn);
+
+        if ($result['affectedRows'] > 0)
+            $messages[] = "Data limite para inscrição de espectadores alterada!";
     }
     catch (\Exception $e)
     {
