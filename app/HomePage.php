@@ -1,11 +1,8 @@
 <?php
 namespace Congress\App;
 
-use Congress\Components\Data\DataGrid;
-use Congress\Components\Data\Paginator;
 use Congress\Components\Link;
 use Congress\Components\Panels\ButtonsContainer;
-use Congress\Components\Site\MainSlideShow;
 use Congress\Lib\Helpers\System;
 use Congress\Lib\Helpers\URLGenerator;
 use PComp\{View, Component, HeadManager, Context};
@@ -40,7 +37,7 @@ class HomePage extends Component
 					[
 						View::tag('h1', class: 'lg:text-4xl text-2xl lg:my-4 my-2', children: [ View::text(System::eventName()) ]),
 						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Dias 7 e 8 de dezembro de 2023 (9h)') ]),
-						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Submissões de 20 de outubro a 20 de novembro') ]),
+						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Submissões de 20 de outubro a 27 de novembro') ]),
 						View::tag('p', class: 'text-amber-400 text-left text-lg', children: 
 						[ 
 							View::rawText('&#10140; Inscreva-se como ') ,
