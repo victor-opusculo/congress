@@ -41,7 +41,7 @@ abstract class Component implements IRenderable
 	protected Component|array|null $markupComps;
 	protected bool $prepareSetUpForChildren = false;
 
-	public array $children = [];
+	public array|Component $children = [];
 	
 	public function renderToString() : string
 	{
@@ -64,7 +64,7 @@ abstract class Component implements IRenderable
 	
 	protected function renderChildren()
 	{
-		$allChilds = \Congress\Lib\Helpers\Data::flattenArray($this->children);
+		$allChilds = \Congress\Lib\Helpers\Data::flattenArray(is_array($this->children) ? $this->children : [ $this->children ]);
 
 		if (!empty($allChilds))
 			foreach ($allChilds as $child)

@@ -1,5 +1,6 @@
 <?php
 
+use Congress\Lib\Helpers\System;
 use Congress\Lib\Helpers\URLGenerator;
 use PComp\{View, Component, HeadManager, StyleManager, ScriptManager};
 
@@ -157,8 +158,12 @@ $pageMessages = !empty($_GET['messages']) ? explode('//', $_GET['messages']) : [
 	}
 	?>
 	<head>
+		<!-- Desenvolvido por Victor Opusculo -->
 		<meta charset="utf8"/>
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta name="description" content="<?= System::eventName() ?>">
+		<meta name="keywords" content="congresso, eventos, artigos, escolas de governo, Itapevi, CMI, Câmara Itapevi">
+  		<meta name="author" content="Victor Opusculo Oliveira Ventura de Almeida">
 		<link rel="stylesheet" href="<?= URLGenerator::generateFileUrl('assets/twoutput.css') ?>" />
 		<link rel="shortcut icon" href="<?= URLGenerator::generateFileUrl('assets/favicon.ico') ?>">
 		<?= HeadManager::getHeadText() ?>

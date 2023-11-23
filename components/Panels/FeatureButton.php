@@ -18,7 +18,7 @@ class FeatureButton extends Component
         children: 
         [ 
             View::scTag('img', class: 'block h-20 mb-2', src: $this->iconUrl, alt: $this->label),
-            View::tag('div', class: 'text-center', children: [ View::text($this->label)  ]) 
+            View::tag('div', class: 'text-center', children: View::text($this->label) ) 
         ]);
     }
 }
