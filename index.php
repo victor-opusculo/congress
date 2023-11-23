@@ -162,7 +162,7 @@ $pageMessages = !empty($_GET['messages']) ? explode('//', $_GET['messages']) : [
 		<meta charset="utf8"/>
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
 		<meta name="description" content="<?= System::eventName() ?>">
-		<meta name="keywords" content="congresso, eventos, artigos, escolas de governo, Itapevi, CMI, Câmara Itapevi">
+		<meta name="keywords" content="congresso, eventos, artigos, escolas de governo, Itapevi, CMI, Câmara Itapevi, desenvolvimento regional, científico">
   		<meta name="author" content="Victor Opusculo Oliveira Ventura de Almeida">
 		<link rel="stylesheet" href="<?= URLGenerator::generateFileUrl('assets/twoutput.css') ?>" />
 		<link rel="shortcut icon" href="<?= URLGenerator::generateFileUrl('assets/favicon.ico') ?>">
