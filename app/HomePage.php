@@ -36,8 +36,8 @@ class HomePage extends Component
 					View::tag('div', class: 'text-white font-bold flex flex-col items-center justify-center mx-auto min-w-[300px] max-w-[700px]' , children: 
 					[
 						View::tag('h1', class: 'lg:text-4xl text-2xl lg:my-4 my-2', children: [ View::text(System::eventName()) ]),
-						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Dias 7 e 8 de dezembro de 2023 (9h)') ]),
-						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Submissões de 20 de outubro a 27 de novembro') ]),
+						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Primeiro semestre de 2024') ]),
+						View::tag('p', class: 'text-amber-400 text-left text-2xl', children: [ View::rawText('&#10140; Submissões abertas!') ]),
 						View::tag('p', class: 'text-amber-400 text-left text-lg', children: 
 						[ 
 							View::rawText('&#10140; Inscreva-se como ') ,
@@ -56,6 +56,15 @@ class HomePage extends Component
 						])
 					])
 				])
+			]),
+			View::tag('section', class: 'my-4', children: 
+			[
+				View::tag('div', class: 'bg-yellow-300 border-yellow-700 border p-2 mx-auto text-xl max-w-[600px] min-w-[300px]', children:
+				[
+					View::tag('h2', class: 'text-2xl text-center my-4 font-bold', children: [ View::text('Aviso!') ]),
+					View::tag('p', class: 'text-justify', children: [ View::text('O evento do congresso foi adiado para 2024 para garantir maior tempo disponível para submissões de artigos e tempo adequado para os avaliadores emitirem parecer. As novas datas serão reveladas no próximo ano! ' .
+					'Enquanto isso, as submissões estão abertas para o recebimento de mais artigos.') ] )
+			 	])
 			]),
 			View::tag('section', id: 'secThemeGroups', children: [ View::rawText(file_get_contents(__DIR__ . '/theme-groups.html')) ]),
 			View::tag('section', id: 'secArticleSubmission', class: 'w-full bg-red-300 px-4 py-4', children: 
