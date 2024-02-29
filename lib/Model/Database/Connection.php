@@ -49,13 +49,13 @@ abstract class Connection
 
     public static function getCryptoKey() : string
 	{
-		return !empty(getenv("CRYPTO_KEY")) ? getenv("CRYPTO_KEY") : self::getDatabaseConfig()['crypto'];
+		return self::getDatabaseConfig()['crypto'];
 	}
 
     private static function getDatabaseConfig() : array
 	{
 		$configs = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/congress_config.ini", true);
-		putenv("CRYPTO_KEY=" . $configs['database']['crypto']);
+		//putenv("CRYPTO_KEY=" . $configs['database']['crypto']);
 		return $configs['database'];
 	}
 
