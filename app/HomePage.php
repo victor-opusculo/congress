@@ -52,7 +52,7 @@ class HomePage extends Component
 						]),
 						View::tag('p', class: 'text-orange-400 text-center text-xl', children:
 						[
-							View::text('Rua Arnaldo Sérgio Cordeiro das Neves, nº 80 - Vila Nova - Itapevi/SP')
+							View::text('Congresso será on-line, via Zoom. Não se esqueça de se inscrever!')
 						])
 					])
 				])
