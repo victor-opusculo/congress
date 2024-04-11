@@ -61,9 +61,27 @@ class HomePage extends Component
 			[
 				View::tag('div', class: 'bg-yellow-300 border-yellow-700 border p-2 mx-auto text-xl max-w-[600px] min-w-[300px]', children:
 				[
-					View::tag('h2', class: 'text-2xl text-center my-4 font-bold', children: [ View::text('Novas datas, confira!') ]),
 					View::tag('p', class: 'text-justify', children: [ View::tag('a', class: 'block text-center', href: URLGenerator::generateFileUrl('assets/docs/edital.pdf'), children: View::text('Consulte aqui o edital do evento!')) ])
-			 	])
+			 	]),
+				View::tag('div', class: 'mt-4 mx-auto max-w-[1000px]', children:
+				[
+					View::tag('h1', children: [ View::text('Organização') ]),
+					View::tag('p', class: 'text-justify', children:
+					[
+						View::rawText("<strong>Comissão Geral: </strong>"),
+						View::text('Prof. Welliton J. da Silva, Prof. Jadson N. Santos, Prof. Roberto E. Lamari, Rafael A. N. Sasaki, Prof. Marcelo Damasceno.')
+					]),
+					View::tag('p', class: 'text-justify', children:
+					[
+						View::rawText("<strong>Coordenação Administrativa: </strong>"),
+						View::text('Sandra Regina dos Santos Silva.')
+					]),
+					View::tag('p', class: 'text-justify', children:
+					[
+						View::rawText("<strong>Coordenação Acadêmica: </strong>"),
+						View::text('Marcela B. de Moraes.')
+					])
+				])
 			]),
 			View::tag('section', id: 'secThemeGroups', children: [ View::rawText(file_get_contents(__DIR__ . '/theme-groups.html')) ]),
 			View::tag('section', id: 'secArticleSubmission', class: 'w-full bg-red-300 px-4 py-4', children: 
