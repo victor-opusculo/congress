@@ -3,6 +3,7 @@ namespace Congress\App;
 
 use Congress\Components\Link;
 use Congress\Components\Panels\ButtonsContainer;
+use Congress\Components\Site\ProgSlideShow;
 use Congress\Lib\Helpers\System;
 use Congress\Lib\Helpers\URLGenerator;
 use PComp\{View, Component, HeadManager, Context};
@@ -57,6 +58,7 @@ class HomePage extends Component
 					])
 				])
 			]),
+			View::component(ProgSlideShow::class),
 			View::tag('section', class: 'my-4', children: 
 			[
 				View::tag('div', class: 'bg-yellow-300 border-yellow-700 border p-2 mx-auto text-xl max-w-[600px] min-w-[300px]', children:
