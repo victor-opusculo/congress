@@ -69,7 +69,7 @@ class HomePage extends Component
 					View::tag('p', class: 'text-justify', children:
 					[
 						View::rawText("<strong>Comissão Geral: </strong>"),
-						View::text('Prof. Welliton J. da Silva, Prof. Jadson N. Santos, Prof. Roberto E. Lamari, Rafael A. N. Sasaki, Prof. Marcelo Damasceno.')
+						View::text('Prof. Welliton J. da Silva, Prof. Jadson N. Santos, Prof. Roberto E. Lamari, Rafael A. N. Sasaki, Prof. Marcelo Damasceno, Prof. Marcos Bataglia.')
 					]),
 					View::tag('p', class: 'text-justify', children:
 					[
