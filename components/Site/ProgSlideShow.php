@@ -16,19 +16,23 @@ class ProgSlideShow extends Component
 
     protected function markup() : Component
     {
-        return View::tag('div', class: 'slideShowContainer relative w-full h-full flex flex-row bg-indigo-300', children:
+        return View::tag('div', class: 'slideShowContainer relative bg-indigo-300', children:
         [
-            ...array_map( fn($i) => 
-                View::scTag('img', 
-                    ...['data-index' => $i ],
-                    class: ($i > 1 ? 'hidden' : 'block') . ' slideImage max-h-[500px] max-w-full mx-auto', 
-                    src: URLGenerator::generateFileUrl('assets/prog-slides/' . $this->slidesFiles[$i - 1]),
-                    ), 
-                range(1, count($this->slidesFiles)) 
-            ),
-
+            View::tag('div', class: 'relative w-full h-[500px] w-full mx-auto flex flex-row', children:
+            [
+                ...array_map( fn($i) => 
+                    View::scTag('img', 
+                        ...['data-index' => $i ],
+                        id: "prog-slide-$i",
+                        class: ($i > 1 ? 'hidden' : 'block') . ' animate-fadeSlide relative slideImage max-h-[500px] max-w-full mx-auto', 
+                        src: URLGenerator::generateFileUrl('assets/prog-slides/' . $this->slidesFiles[$i - 1]),
+                        ), 
+                    range(1, count($this->slidesFiles)) 
+                )
+            ]),
             View::tag('button', type: 'button', class: 'prevSlideButton text-[3rem] absolute flex items-end ml-4 cursor-pointer hover:text-neutral-300 left-0 top-0 bottom-0 text-white font-bold', children: [ View::text('⇦') ]),
             View::tag('button', type: 'button', class: 'nextSlideButton text-[3rem] absolute flex items-end mr-4 cursor-pointer hover:text-neutral-300 right-0 top-0 bottom-0 text-white font-bold -scale-x-100', children: [ View::text('⇦') ]),
+    
         ]);
     }
 }

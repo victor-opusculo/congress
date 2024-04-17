@@ -6,7 +6,21 @@ module.exports = {
     "./components/**/*.{html,php,js}"
   ],
   theme: {
-    extend: {},
+    extend: 
+    {
+      animation:
+      {
+        'fadeSlide': 'fade 1.5s',
+      },
+      keyframes:
+      {
+        fade: 
+        {
+          from: {opacity: 0.4},
+          to: {opacity: 1}
+        }
+    }
+    },
   },
   plugins: [],
 }
